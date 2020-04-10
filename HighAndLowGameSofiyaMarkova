@@ -1,0 +1,376 @@
+// The "HighAndLowGameSofiyaMarkova" class.
+/*Sofiya Markova
+Noveber 22, 2016
+High and Low game*/
+import java.awt.*;
+import hsa.Console;
+
+public class HighAndLowGameSofiyaMarkova
+{
+    static Console c;           // The output console
+    static int num = 0, guess = 0, count = 0;
+    static Font a = new Font ("Courier", 3, 26);
+    static Font b = new Font ("Times New Roman", 0, 30);
+    static Font d = new Font ("Courier", 3, 100);
+
+    public static void main (String[] args)
+    {
+	welcome ();
+	c.close ();
+	level1 ();
+
+	if (num == guess)
+	{
+	    c.close ();
+	    level2 ();
+	    if (num == guess)
+	    {
+		c.close ();
+		level3 ();
+		if (num == guess)
+		{
+		    c.close ();
+		    win ();
+		}
+		else
+		{
+		    c.close ();
+		    death ();
+		}
+	    }
+	    else
+	    {
+		c.close ();
+		death ();
+	    }
+	}
+
+	else
+	{
+	    c.close ();
+	    death ();
+	}
+
+
+    }
+
+
+    //welcom screen method
+    public static void welcome ()
+    {
+	c = new Console ();
+	int recty = 0;
+
+	c.setColor (Color.blue);
+	c.fillRect (1, 1, 700, 500);
+
+	c.setColor (Color.yellow);
+	c.fillRect (100, 200, 520, 100);
+
+	c.setFont (a);
+	c.setColour (Color.red);
+	c.drawString ("Welcome to the High and Low game", 100, 230);
+	c.drawString ("Extra Edition!", 200, 280);
+	delay (1500);
+	do
+	{
+	    c.setColor (Color.blue);
+	    c.fillRect (1, recty, 1000, 10);
+	    recty += 10;
+	    delay (50);
+	}
+	while (recty < 600);
+
+    }
+
+
+    //delay method
+    public static void delay (int x)
+    {
+	try
+	{
+	    Thread.sleep (x);
+
+	}
+	catch (InterruptedException ie)
+	{
+
+	}
+    }
+
+
+    //death method
+    public static void death ()
+    {
+	c = new Console ();
+
+
+	c.setColor (Color.black);
+	c.fillRect (1, 1, 700, 500);
+	c.setColor (Color.red);
+	c.fillArc (350, 440, 300, 20, 50, 50);
+	c.fillOval (550, 350, 40, 40);
+	c.fillOval (470, 350, 40, 40);
+	c.setColor (Color.black);
+	c.fillOval (563, 365, 5, 5);
+	c.fillOval (482, 365, 5, 5);
+
+	c.setFont (d);
+	c.setColour (Color.red);
+	c.drawString ("Dead!", 170, 170);
+    }
+
+
+    public static void win ()
+    {
+	c = new Console ();
+
+	c.setColor (Color.yellow);
+	c.fillRect (1, 1, 700, 500);
+
+	Font a = new Font ("Cursiva", 2, 100);
+	c.setFont (a);
+	c.setColour (Color.blue);
+	c.drawString ("You Win!", 100, 170);
+    }
+
+
+    //level 1 method
+    public static void level1 ()
+    {
+
+
+	// top level 1 screen
+	c = new Console ();
+	c.setColor (Color.black);
+	c.fillRect (1, 1, 700, 70);
+	c.setFont (b);
+	c.setColour (Color.red);
+	c.drawString ("Level 1: Test your Luck", 50, 50);
+
+	// guessing game for luck
+	num = (int) (Math.random () * 10 + 1);
+	count = 5;
+	c.setCursor (5, 1);
+	c.println ("guess the number between 1 and 10, you have 5 tries");
+
+	do
+	{
+
+	    c.print ("your guess: ");
+	    guess = c.readInt ();
+	    count--;
+
+	    if (num < guess)
+	    {
+		c.println ("guess lower");
+	    }
+	    if (num > guess)
+	    {
+		c.println ("guess higher");
+	    }
+
+	}
+
+
+	while (count > 0 && num != guess);
+
+    }
+
+
+    // level 2 method
+    public static void level2 ()
+    { // top level 2 screen
+	c = new Console ();
+	c.setColor (Color.black);
+	c.fillRect (1, 1, 700, 70);
+	c.setFont (b);
+	c.setColour (Color.red);
+	c.drawString ("Level 2: Test your Logic", 50, 50);
+
+
+	//guessing game for logic
+	num = (int) (Math.random () * 100 + 1);
+	count = 10;
+	c.setCursor (5, 1);
+	c.println ("guess the number between 1 and 100, you have 10 tries");
+
+	do
+	{
+
+	    c.print ("your guess: ");
+	    guess = c.readInt ();
+
+	    count--;
+	    if (num < guess)
+	    {
+		c.println ("guess lower");
+	    }
+	    if (num > guess)
+	    {
+		c.println ("guess higher");
+	    }
+	    //math problems generator
+	    if (count == 5)
+	    {
+
+		int num1 = (int) (Math.random () * 50 + 1), num2 = (int) (Math.random () * 10 + 1);
+		int operator = (int) (Math.random () * 3 + 1);
+		double correctAnswer, answer;
+		String sign = " ";
+
+		switch (operator)
+		{
+		    case 1:
+			sign = "+";
+			break;
+		    case 2:
+			sign = "-";
+			break;
+		    case 3:
+			sign = "*";
+			break;
+		}
+
+
+		c.print ("if you get this right you get extra lives " + num1 + " " + sign + " " + num2 + ":");
+		answer = c.readDouble ();
+		if (operator == 1)
+		{
+		    correctAnswer = num1 + num2;
+		}
+		else if (operator == 2)
+		{
+		    correctAnswer = num1 - num2;
+		}
+		else
+
+		    {
+			correctAnswer = num1 * num2;
+		    }
+
+
+
+		if (answer == correctAnswer)
+		{
+		    c.println ("you now have 9 guesses");
+		    count = 9;
+
+		}
+		else
+		{
+		    c.println ("incorrect, no extra guesses for you");
+
+		}
+	    }
+	}
+	while (count > 0 && num != guess);
+
+    }
+
+
+    //level 3 method
+    public static void level3 ()
+    { // top level 3 screen
+	c = new Console ();
+	c.setColor (Color.black);
+	c.fillRect (1, 1, 700, 70);
+	c.setFont (b);
+	c.setColour (Color.red);
+	c.drawString ("Level 3: Test your Literacy skills", 50, 50);
+
+
+	//guessing game for literacy
+	num = (int) (Math.random () * 50 + 1);
+	count = 5;
+	c.setCursor (5, 1);
+	c.println ("guess the number between 1 and 50, you have 5 tries");
+
+	do
+	{
+	    c.print ("your guess: ");
+	    guess = c.readInt ();
+	    count--;
+	    if (num < guess)
+	    {
+		c.println ("guess lower");
+	    }
+	    if (num > guess)
+	    {
+		c.println ("guess higher");
+	    }
+	    //riddles generator
+	    if (count == 3)
+	    {
+		c.println ("if you get this riddle right you get extra lives, write one word answers: ");
+
+		int operator = (int) (Math.random () * 5 + 1);
+		String correctAnswer, answer = "lol";
+
+		switch (operator)
+		{
+		    case 1:
+			c.println ("What has a face and two hands but no arms or legs?");
+			answer = c.readString ();
+			break;
+		    case 2:
+			c.println ("The more you take, the more you leave behind. What am I?");
+			answer = c.readString ();
+			break;
+		    case 3:
+			c.println ("Which vehicle is spelled the same forwards and backwards?");
+			answer = c.readString ();
+			break;
+		    case 4:
+			c.println ("What has a neck but no head?");
+			answer = c.readString ();
+			break;
+		    case 5:
+			c.println ("What has a thumb and four fingers but is not alive?");
+			answer = c.readString ();
+		}
+
+		if (operator == 1)
+		{
+		    correctAnswer = "clock";
+		}
+		else if (operator == 2)
+		{
+		    correctAnswer = "footsteps";
+
+		}
+
+		else if (operator == 3)
+		{
+		    correctAnswer = "racecar";
+		}
+		else if (operator == 4)
+		{
+		    correctAnswer = "bottle";
+		}
+
+		else
+
+		    {
+			correctAnswer = "glove";
+		    }
+		if (answer.equalsIgnoreCase (correctAnswer))
+
+		    {
+			c.println ("correct! back to 5 guesses!");
+			count = 5;
+		    }
+		else
+		{
+		    c.println ("incorrect, no extra guesses for you");
+
+		    c.println (correctAnswer);
+		}
+	    }
+	}
+	while (count > 0 && num != guess);
+
+
+	// Place your program here.  'c' is the output console
+    } // main method
+} // HighAndLowGameSofiyaMarkova class
